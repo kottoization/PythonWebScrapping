@@ -1,5 +1,6 @@
 import Functions #tu mozna dac pozniej from Functions import nazwa_funkcji , wtedy mozna odwolywac sie bezposrednio do tej nazwy, albo mozna zostawic tak i robic Functions.nazw_funkcji, jest to obojetne ale spoko zeby bylo wszzedzie tak samo 
 import pandas as pd
+import Analysis
 
 #trzeba dodac headers bo inaczej yahoo rzuca nam 404 nie znaleziono strony
 headers = {
@@ -10,7 +11,7 @@ headers = {
 #przykladowe pobranie danych do data table dla bitcoina
 
 #stworzenie url
-btcUrl = Functions.construct_download_url('BTC', '2022-11-27', '2023-11-27','daily')
+btcUrl = Functions.construct_download_url('BTC', '2022-11-27', '2023-11-27','weekly')
 
 #pobranie danych
 btcYear = Functions.scrape_yahoo_finance_data(btcUrl, headers)
@@ -23,5 +24,5 @@ ethUrl = Functions.construct_download_url('ETH', '2022-11-27', '2023-11-27','dai
 #pobranie danych
 ethYear = Functions.scrape_yahoo_finance_data(ethUrl, headers)
 
-print(f'BTC: \n {btcYear}')
-print(f'ETH: \n {ethYear}')
+Analysis.endoftheday_data(btcYear,"Bitcoin")
+
