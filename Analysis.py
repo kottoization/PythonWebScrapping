@@ -106,7 +106,7 @@ def calculate_greed_fear_index(df):
     
     return df1
 
-def plot_candlestick_chart(df):
+def plot_candlestick_chart(df,crypto):
     # Tworzenie obiektu Candlestick
     candlestick = go.Candlestick(
         x=df['Date'],
@@ -114,7 +114,7 @@ def plot_candlestick_chart(df):
         close=df['Close'],
         low=df['Low'],
         high=df['High'],
-        name='Bitcoin/USD Candlestick'
+        name= crypto+ '/USD Candlestick'
     )
 
     # Tworzenie obiektu Figure
@@ -124,7 +124,7 @@ def plot_candlestick_chart(df):
     fig.update_layout(
         width=900,
         height=450,
-        title=dict(text='<b>Bitcoin/USD Chart</b>', font=dict(size=30)),
+        title=dict(text=crypto+'<b>/USD Chart</b>', font=dict(size=30)),
         yaxis_title=dict(text='Price (USD)', font=dict(size=15)),
         margin=dict(l=10, r=20, t=80, b=20),
         xaxis_rangeslider_visible=False,
