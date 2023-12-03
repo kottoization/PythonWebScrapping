@@ -14,21 +14,21 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
 }
 
-#przykladowe pobranie danych do data table dla bitcoina
+# #przykladowe pobranie danych do data table dla bitcoina
 
-#stworzenie url
-btcUrl = Functions.construct_download_url('BTC', '2022-11-27', '2023-11-27','daily')
+# #stworzenie url
+# btcUrl = Functions.construct_download_url('BTC', '2022-11-27', '2023-11-27','daily')
 
-#pobranie danych
-btcYear = Functions.scrape_yahoo_finance_data(btcUrl, headers)
+# #pobranie danych
+# btcYear = Functions.scrape_yahoo_finance_data(btcUrl, headers)
 
-#przykladowe pobranie danych do data table dla ethereum
+# #przykladowe pobranie danych do data table dla ethereum
 
-#stworzenie url
-ethUrl = Functions.construct_download_url('ETH', '2022-11-27', '2023-11-27','daily')
+# #stworzenie url
+# ethUrl = Functions.construct_download_url('ETH', '2022-11-27', '2023-11-27','daily')
 
-#pobranie danych 
-ethYear = Functions.scrape_yahoo_finance_data(ethUrl, headers)
+# #pobranie danych 
+# ethYear = Functions.scrape_yahoo_finance_data(ethUrl, headers)
 
 def changing_format(df):
      numeric_columns = ['Open', 'High', 'Low', 'Close', 'AdjClose', 'Volume']
@@ -72,12 +72,6 @@ def calculate_greed_fear_index(df):
     df1= df.copy()
     if 'Close' not in df1.columns:
         raise ValueError("The 'Close' column is missing in the DataFrame.")
-    
-   # Convert 'Close' column to numeric, handling errors
-    #df['Close'] = pd.to_numeric(df['Close'], errors='coerce')
-    
-    # Drop rows with NaN values in the 'Close' column
-  #  df = df.dropna(subset=['Close'])
     
     # Extract 'Close' prices
     close_prices = df1['Close']
@@ -134,16 +128,13 @@ def plot_candlestick_chart(df,crypto):
     fig.show()
 
 
-def train_linear_regression_model(df):
+def train_linear_regression_model(df,crypto):
  
     # Wybór zmiennych objaśniających
     features = df[['Open', 'High', 'Low', 'Volume']]
     #features= changing_format(features)
     # Zmienna objaśniana
     target = df['AdjClose'].str.replace(',', '').astype(float)
-    #target = df['AdjClose']
-    # target['AdjClose'] = target['AdjClose'].apply(lambda x: x.str.replace(',', ''))
-    # target['AdjClose'] = target['AdjClose'].apply(pd.to_numeric, errors='coerce')
 
     numeric_columns2 = ['Open', 'High', 'Low', 'Volume']
     features[numeric_columns2] = features[numeric_columns2].apply(lambda x: x.str.replace(',', ''))
@@ -167,11 +158,10 @@ def train_linear_regression_model(df):
     plt.scatter(X_test['Open'], predictions, color='blue', label='Predicted')
     plt.xlabel('Open Price')
     plt.ylabel('AdjClose Price')
+    plt.title(crypto)
     plt.legend()
     plt.show()
 
-#------------------------
- #stworzenie url
 def profit4Crypto():
     btcUrl = Functions.construct_download_url('BTC', '2022-11-27', '2023-11-27','weekly')
 

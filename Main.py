@@ -13,7 +13,7 @@ def main():
         print(f'Analiza danych dla {crypto}:\n{data}')
         Analysis.plot_candlestick_chart(data,crypto)
         Analysis.calculate_greed_fear_index(data)
-        Analysis.train_linear_regression_model(data) 
+        Analysis.train_linear_regression_model(data,crypto) 
         Analysis.changing_format(data)
         Analysis.endoftheday_data_weekly(data, crypto)
         Analysis.endoftheday_vs_beginningoftheday_data_weekly(data,crypto)
@@ -21,6 +21,9 @@ def main():
 
     # Przykładowa analiza dla Ethereum
     analyze_crypto('ETH')
+    analyze_crypto('BTC')
+    analyze_crypto('BNB')
+    analyze_crypto('SOL')
     Analysis.profit4Crypto()
 
 
