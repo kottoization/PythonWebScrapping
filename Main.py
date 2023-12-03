@@ -2,55 +2,80 @@ import Functions #tu mozna dac pozniej from Functions import nazwa_funkcji , wte
 import pandas as pd
 import Analysis
 
-#trzeba dodac headers bo inaczej yahoo rzuca nam 404 nie znaleziono strony
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
-}
+def main():
+
+    def url(currency, start_date, end_date):
+        return Functions.construct_download_url(currency, start_date, end_date, 'daily')
+
+    def pobierzDane(link, headers):  # Dodano argument headers
+        return Functions.scrape_yahoo_finance_data(link, headers)
+
+    def analizujDane(data_frame):
+        print(f'Analiza danych:\n{data_frame}')
+        Analysis.endoftheday_data_weekly(pobierzDane(url('ETH', '2022-11-27', '2023-11-27'), headers), "title")
+        Analysis.plot_candlestick_chart(pobierzDane(url('ETH', '2022-11-27', '2023-11-27'), headers))
+        Analysis.calculate_greed_fear_index(pobierzDane(url('ETH', '2022-11-27', '2023-11-27'), headers))
+        Analysis.train_linear_regression_model(pobierzDane(url('ETH', '2022-11-27', '2023-11-27'), headers))
+
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
+    }
+
+    analizujDane(pobierzDane(url('ETH', '2022-11-27', '2023-11-27'), headers))
+    #analizujDane(pobierzDane(url('BTC', '2022-11-27', '2023-11-27'), headers))
+
+    #trzeba dodac headers bo inaczej yahoo rzuca nam 404 nie znaleziono strony
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
+    }
 
 
-#przykladowe pobranie danych do data table dla bitcoina
+    #przykladowe pobranie danych do data table dla bitcoina
 
-#stworzenie url
-btcUrl = Functions.construct_download_url('BTC', '2022-11-27', '2023-11-27','weekly')
+    #stworzenie url
+    btcUrl = Functions.construct_download_url('BTC', '2022-11-27', '2023-11-27','weekly')
 
-#pobranie danych
-btcYear = Functions.scrape_yahoo_finance_data(btcUrl, headers)
+    #pobranie danych
+    btcYear = Functions.scrape_yahoo_finance_data(btcUrl, headers)
 
-#przykladowe pobranie danych do data table dla ethereum
+    #przykladowe pobranie danych do data table dla ethereum
 
-#stworzenie url
-ethUrl = Functions.construct_download_url('ETH', '2022-11-27', '2023-11-27','weekly')
+    #stworzenie url
+    ethUrl = Functions.construct_download_url('ETH', '2022-11-27', '2023-11-27','weekly')
 
-#pobranie danych
-ethYear = Functions.scrape_yahoo_finance_data(ethUrl, headers)
+    #pobranie danych
+    ethYear = Functions.scrape_yahoo_finance_data(ethUrl, headers)
 
-#przykladowe pobranie danych do data table dla binance
+    #przykladowe pobranie danych do data table dla binance
 
-#stworzenie url
-bnbUrl = Functions.construct_download_url('BNB', '2022-11-27', '2023-11-27','weekly')
+    #stworzenie url
+    bnbUrl = Functions.construct_download_url('BNB', '2022-11-27', '2023-11-27','weekly')
 
-#pobranie danych
-bnbYear = Functions.scrape_yahoo_finance_data(bnbUrl, headers)
+    #pobranie danych
+    bnbYear = Functions.scrape_yahoo_finance_data(bnbUrl, headers)
 
-#przykladowe pobranie danych do data table dla solany
+    #przykladowe pobranie danych do data table dla solany
 
-#stworzenie url
-solUrl = Functions.construct_download_url('SOL', '2022-11-27', '2023-11-27','weekly')
+    #stworzenie url
+    solUrl = Functions.construct_download_url('SOL', '2022-11-27', '2023-11-27','weekly')
 
-#pobranie danych
-solYear = Functions.scrape_yahoo_finance_data(solUrl, headers)
+    #pobranie danych
+    solYear = Functions.scrape_yahoo_finance_data(solUrl, headers)
 
-Analysis.changing_format(btcYear)
-Analysis.changing_format(ethYear)
-Analysis.changing_format(bnbYear)
-Analysis.changing_format(solYear)
+    Analysis.changing_format(btcYear)
+    Analysis.changing_format(ethYear)
+    Analysis.changing_format(bnbYear)
+    Analysis.changing_format(solYear)
 
-#funkcja przedstawia wartości kryptowaluty na koniec dnia w czasie
-Analysis.endoftheday_data_weekly(btcYear, "Bitcoin")
-#Funkcja poiera listę tabel  danymi dotycącymi krypotwaluty oraz listę nazw. Podaje o jaki procent wzrosły/zmalały krptowaluty
-lista = [btcYear, ethYear, bnbYear, solYear]
-nazwy = ["Bitcoin", "Ethernum", "Binance", "Solana"]
-Analysis.profit(lista, nazwy)
-#funkcja przedstawia różnicę pomiędzy początkiem dnia a końcem
-Analysis.endoftheday_vs_beginningoftheday_data_weekly(btcYear,"Bitcoin")
+    #funkcja przedstawia wartości kryptowaluty na koniec dnia w czasie
+    Analysis.endoftheday_data_weekly(btcYear, "Bitcoin")
+    #Funkcja poiera listę tabel  danymi dotycącymi krypotwaluty oraz listę nazw. Podaje o jaki procent wzrosły/zmalały krptowaluty
+    lista = [btcYear, ethYear, bnbYear, solYear]
+    nazwy = ["Bitcoin", "Ethernum", "Binance", "Solana"]
+    Analysis.profit(lista, nazwy)
+    #funkcja przedstawia różnicę pomiędzy początkiem dnia a końcem
+    Analysis.endoftheday_vs_beginningoftheday_data_weekly(btcYear,"Bitcoin")
 
+
+if __name__ == "__main__":
+    main()
