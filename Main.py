@@ -24,5 +24,5 @@ ethUrl = Functions.construct_download_url('ETH', '2022-11-27', '2023-11-27','dai
 #pobranie danych
 ethYear = Functions.scrape_yahoo_finance_data(ethUrl, headers)
 
-Analysis.endoftheday_data(btcYear,"Bitcoin")
+#Analysis.endoftheday_data(btcYear,"Bitcoin")
 
