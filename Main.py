@@ -19,10 +19,38 @@ btcYear = Functions.scrape_yahoo_finance_data(btcUrl, headers)
 #przykladowe pobranie danych do data table dla ethereum
 
 #stworzenie url
-ethUrl = Functions.construct_download_url('ETH', '2022-11-27', '2023-11-27','daily')
+ethUrl = Functions.construct_download_url('ETH', '2022-11-27', '2023-11-27','weekly')
 
 #pobranie danych
 ethYear = Functions.scrape_yahoo_finance_data(ethUrl, headers)
 
-Analysis.endoftheday_data(btcYear,"Bitcoin")
+#przykladowe pobranie danych do data table dla binance
+
+#stworzenie url
+bnbUrl = Functions.construct_download_url('BNB', '2022-11-27', '2023-11-27','weekly')
+
+#pobranie danych
+bnbYear = Functions.scrape_yahoo_finance_data(bnbUrl, headers)
+
+#przykladowe pobranie danych do data table dla solany
+
+#stworzenie url
+solUrl = Functions.construct_download_url('SOL', '2022-11-27', '2023-11-27','weekly')
+
+#pobranie danych
+solYear = Functions.scrape_yahoo_finance_data(solUrl, headers)
+
+Analysis.changing_format(btcYear)
+Analysis.changing_format(ethYear)
+Analysis.changing_format(bnbYear)
+Analysis.changing_format(solYear)
+
+#funkcja przedstawia wartości kryptowaluty na koniec dnia w czasie
+Analysis.endoftheday_data_weekly(btcYear, "Bitcoin")
+#Funkcja poiera listę tabel  danymi dotycącymi krypotwaluty oraz listę nazw. Podaje o jaki procent wzrosły/zmalały krptowaluty
+lista = [btcYear, ethYear, bnbYear, solYear]
+nazwy = ["Bitcoin", "Ethernum", "Binance", "Solana"]
+Analysis.profit(lista, nazwy)
+#funkcja przedstawia różnicę pomiędzy początkiem dnia a końcem
+Analysis.endoftheday_vs_beginningoftheday_data_weekly(btcYear,"Bitcoin")
 
