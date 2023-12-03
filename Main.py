@@ -26,11 +26,12 @@ def main():
         Analysis.changing_format(data)
         Analysis.endoftheday_data_weekly(data, crypto)
         Analysis.endoftheday_vs_beginningoftheday_data_weekly(data,crypto)
-        
-        #Analysis.profit(data,crypto)
+       
 
     # Przykładowa analiza dla Ethereum
     analyze_crypto('ETH')
+    Analysis.profit4Crypto()
 
+    
 if __name__ == "__main__":
     main()

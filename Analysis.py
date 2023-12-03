@@ -170,5 +170,45 @@ def train_linear_regression_model(df):
     plt.legend()
     plt.show()
 
+#------------------------
+ #stworzenie url
+def profit4Crypto():
+    btcUrl = Functions.construct_download_url('BTC', '2022-11-27', '2023-11-27','weekly')
 
+    #pobranie danych
+    btcYear = Functions.scrape_yahoo_finance_data(btcUrl, headers)
+
+    #przykladowe pobranie danych do data table dla ethereum
+
+    #stworzenie url
+    ethUrl = Functions.construct_download_url('ETH', '2022-11-27', '2023-11-27','weekly')
+
+    #pobranie danych
+    ethYear = Functions.scrape_yahoo_finance_data(ethUrl, headers)
+
+    #przykladowe pobranie danych do data table dla binance
+
+    #stworzenie url
+    bnbUrl = Functions.construct_download_url('BNB', '2022-11-27', '2023-11-27','weekly')
+
+    #pobranie danych
+    bnbYear = Functions.scrape_yahoo_finance_data(bnbUrl, headers)
+
+    #przykladowe pobranie danych do data table dla solany
+
+    #stworzenie url
+    solUrl = Functions.construct_download_url('SOL', '2022-11-27', '2023-11-27','weekly')
+
+    #pobranie danych
+    solYear = Functions.scrape_yahoo_finance_data(solUrl, headers)
+
+    changing_format(btcYear)
+    changing_format(ethYear)
+    changing_format(bnbYear)
+    changing_format(solYear)
+
+    #Funkcja poiera listę tabel  danymi dotycącymi krypotwaluty oraz listę nazw. Podaje o jaki procent wzrosły/zmalały krptowaluty
+    lista = [btcYear, ethYear, bnbYear, solYear]
+    nazwy = ["Bitcoin", "Ethernum", "Binance", "Solana"]
+    profit(lista, nazwy)
 
