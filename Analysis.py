@@ -65,27 +65,24 @@ def profit(list, nazwy):
     plt.ylabel("%")
     plt.show()
 
-def preprocess_data(df):
-    numeric_columns = ['Open', 'High', 'Low', 'Close', 'AdjClose', 'Volume']
-    df[numeric_columns] = df[numeric_columns].apply(lambda x: x.str.replace(',', ''))
-    df[numeric_columns] = df[numeric_columns].apply(pd.to_numeric, errors='coerce')
-    return df
 
 def calculate_greed_fear_index(df):
-    df= preprocess_data(df)
+    #df= changing_format(df)
      # Ensure 'Close' is present in the DataFrame
-    if 'Close' not in df.columns:
+    df1= df.copy()
+    if 'Close' not in df1.columns:
         raise ValueError("The 'Close' column is missing in the DataFrame.")
     
-    # Convert 'Close' column to numeric, handling errors
-    df['Close'] = pd.to_numeric(df['Close'], errors='coerce')
+   # Convert 'Close' column to numeric, handling errors
+    #df['Close'] = pd.to_numeric(df['Close'], errors='coerce')
     
     # Drop rows with NaN values in the 'Close' column
-    df = df.dropna(subset=['Close'])
+  #  df = df.dropna(subset=['Close'])
     
     # Extract 'Close' prices
-    close_prices = df['Close']
-    
+    close_prices = df1['Close']
+    close_prices= df1['Close'].str.replace(',', '').astype(float)
+   # close_prices= pd.to_numeric(close_prices)
     # Initialize an empty list to store percentage changes
     percentage_changes = []
     
@@ -95,19 +92,19 @@ def calculate_greed_fear_index(df):
         percentage_changes.append(percentage_change)
     
     # Create a new column 'PriceChanges' in the DataFrame
-    df['PriceChanges'] = [0] + percentage_changes
+    df1['PriceChanges'] = [0] + percentage_changes
     
     # Classify as Greed (1), Fear (-1), or Neutral (0) based on the percentage change
     conditions = [
-        (df['PriceChanges'] > 0),
-        (df['PriceChanges'] < 0),
+        (df1['PriceChanges'] > 0),
+        (df1['PriceChanges'] < 0),
     ]
     choices = [1, -1]
     
-    df['GreedFearIndex'] = pd.cut(df['PriceChanges'], bins=[float('-inf'), 0, float('inf')], labels=choices)
-    print(df)
+    df1['GreedFearIndex'] = pd.cut(df1['PriceChanges'], bins=[float('-inf'), 0, float('inf')], labels=choices)
+    print(df1)
     
-    return df
+    return df1
 
 def plot_candlestick_chart(df):
     # Tworzenie obiektu Candlestick
@@ -138,15 +135,19 @@ def plot_candlestick_chart(df):
 
 
 def train_linear_regression_model(df):
-    # Przygotowanie danych
-    df = preprocess_data(df)
-    
+ 
     # Wybór zmiennych objaśniających
     features = df[['Open', 'High', 'Low', 'Volume']]
-    
+    #features= changing_format(features)
     # Zmienna objaśniana
-    target = df['AdjClose']
-    
+    target = df['AdjClose'].str.replace(',', '').astype(float)
+    #target = df['AdjClose']
+    # target['AdjClose'] = target['AdjClose'].apply(lambda x: x.str.replace(',', ''))
+    # target['AdjClose'] = target['AdjClose'].apply(pd.to_numeric, errors='coerce')
+
+    numeric_columns2 = ['Open', 'High', 'Low', 'Volume']
+    features[numeric_columns2] = features[numeric_columns2].apply(lambda x: x.str.replace(',', ''))
+    features[numeric_columns2] = features[numeric_columns2].apply(pd.to_numeric, errors='coerce')
     # Podział danych na zbiór treningowy i testowy
     X_train, X_test, y_train, y_test = train_test_split(features, target, test_size=0.2, random_state=42)
     
