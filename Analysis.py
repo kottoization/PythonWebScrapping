@@ -1,4 +1,4 @@
-import Functions #tu mozna dac pozniej from Functions import nazwa_funkcji , wtedy mozna odwolywac sie bezposrednio do tej nazwy, albo mozna zostawic tak i robic Functions.nazw_funkcji, jest to obojetne ale spoko zeby bylo wszzedzie tak samo 
+import Functions 
 import pandas as pd
 import matplotlib.pyplot as plt
 import pandas as pd

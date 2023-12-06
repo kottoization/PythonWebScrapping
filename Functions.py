@@ -4,14 +4,12 @@ import pandas as pd
 from bs4 import BeautifulSoup
 import requests
 
-#https://finance.yahoo.com/crypto/  <- link do ogolnej stornki z ktorej mamy liste krypto do requesta
-#poradnik https://www.youtube.com/watch?v=tBiygN2Cif4
 
 def construct_download_url(
-        currency, #np BTC dla bitcoina, ze stronki https://finance.yahoo.com/crypto/ latwo to pobrac z linkow kolejnych walut
-        period1, #data od w formacie rok-miesiac-dzien
-        period2, #data do w formacie rok-miesiac-dzien
-        interval='daily' #daily lub weekly lub monthly zaleznie jaki przedzial czasu chcemy miec
+        currency,
+        period1, 
+        period2, 
+        interval='daily' 
 ):
     """
     :period1 & period2: 'yyyy-mm-dd'
