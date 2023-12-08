@@ -7,7 +7,7 @@ def main():
     }
 
     def downloadData(crypto):
-        url = Functions.construct_download_url(crypto, '2022-11-27', '2023-11-27', 'weekly') #ostatni parametr moze być weekly
+        url = Functions.construct_download_url(crypto, '2022-11-27', '2023-11-27', 'weekly') 
         data = Functions.scrape_yahoo_finance_data(url, headers)
         return data
 
