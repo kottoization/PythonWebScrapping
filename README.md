@@ -19,7 +19,7 @@ To use this tool, follow these steps:
 
 3. **Run the application:**
    ```bash
-   python main.py
+   python Main.py
    ```
 
 ## Functionality
