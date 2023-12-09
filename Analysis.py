@@ -7,15 +7,14 @@ from sklearn.metrics import mean_squared_error
 import plotly.graph_objects as go
 import Functions
 
-
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
 }
 
 def changing_format(df):
-     numeric_columns = ['Open', 'High', 'Low', 'Close', 'AdjClose', 'Volume']
-     df[numeric_columns] = df[numeric_columns].apply(lambda x: x.str.replace(',', ''))
-     df[numeric_columns] = df[numeric_columns].apply(pd.to_numeric, errors='coerce')
+     kolumny_numeryczne = ['Open', 'High', 'Low', 'Close', 'AdjClose', 'Volume']
+     df[kolumny_numeryczne] = df[kolumny_numeryczne].apply(lambda x: x.str.replace(',', ''))
+     df[kolumny_numeryczne] = df[kolumny_numeryczne].apply(pd.to_numeric, errors='coerce')
 
 def endoftheday_data_weekly(df, title):
     plt.figure(figsize=(10, 6))
@@ -49,28 +48,22 @@ def profit(list, nazwy):
 
 
 def calculate_greed_fear_index(df):
-    #df= changing_format(df)
-     # Ensure 'Close' is present in the DataFrame
     df1= df.copy()
     if 'Close' not in df1.columns:
         raise ValueError("The 'Close' column is missing in the DataFrame.")
     
-    # Extract 'Close' prices
     close_prices = df1['Close']
     close_prices= df1['Close'].str.replace(',', '').astype(float)
-   # close_prices= pd.to_numeric(close_prices)
-    # Initialize an empty list to store percentage changes
     percentage_changes = []
     
-    # Calculate the percentage change in close prices for each index
+    # Oblicz procentową zmianę cen zamknięcia dla każdego indeksu
     for i in range(1, len(close_prices)):
         percentage_change = ((close_prices.iloc[i] - close_prices.iloc[i - 1]) / close_prices.iloc[i - 1]) * 100
         percentage_changes.append(percentage_change)
     
-    # Create a new column 'PriceChanges' in the DataFrame
     df1['PriceChanges'] = [0] + percentage_changes
     
-    # Classify as Greed (1), Fear (-1), or Neutral (0) based on the percentage change
+    # Klasyfikuj jako Chciwość (1), Strach (-1) lub Neutralność (0) w oparciu o zmianę procentową
     conditions = [
         (df1['PriceChanges'] > 0),
         (df1['PriceChanges'] < 0),
@@ -80,6 +73,15 @@ def calculate_greed_fear_index(df):
     df1['GreedFearIndex'] = pd.cut(df1['PriceChanges'], bins=[float('-inf'), 0, float('inf')], labels=choices)
     print(df1)
     
+   # Tworzenie wykresu dla Fear and Greed Index
+    # plt.figure(figsize=(10, 6))
+    # plt.plot(df1['Date'], df1['GreedFearIndex'], color='red', label='Fear/Greed Index')
+    # plt.title('Fear/Greed Index')
+    # plt.xlabel('Data')
+    # plt.ylabel('Index')
+    # plt.legend()
+    # plt.show()
+
     return df1
 
 def plot_candlestick_chart(df,crypto):
@@ -114,7 +116,6 @@ def train_linear_regression_model(df,crypto):
  
     # Wybór zmiennych objaśniających
     features = df[['Open', 'High', 'Low', 'Volume']]
-    #features= changing_format(features)
     # Zmienna objaśniana
     target = df['AdjClose'].str.replace(',', '').astype(float)
 
@@ -179,7 +180,7 @@ def profit4Crypto():
     changing_format(bnbYear)
     changing_format(solYear)
 
-    #Funkcja poiera listę tabel  danymi dotycącymi krypotwaluty oraz listę nazw. Podaje o jaki procent wzrosły/zmalały krptowaluty
+    #Funkcja poiera listę tabel  danymi dotyczącymi kryptowaluty oraz listę nazw. Podaje o jaki procent wzrosły/zmalały krptowaluty
     lista = [btcYear, ethYear, bnbYear, solYear]
     nazwy = ["Bitcoin", "Ethernum", "Binance", "Solana"]
     profit(lista, nazwy)
