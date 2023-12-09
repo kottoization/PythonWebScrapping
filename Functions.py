@@ -6,32 +6,31 @@ import requests
 
 
 def construct_download_url(
-        currency,
-        period1, 
-        period2, 
-        interval='daily' 
+    currency,
+    period1,
+    period2,
+    interval='daily'
 ):
-    """
-    :period1 & period2: 'yyyy-mm-dd'
-    :interval: {daily,weekly,monthly}
+    INTERVAL_REFERENCE = {'daily': '1d', 'weekly': '1wk', 'monthly': '1mo'}
+    YAHOO_FINANCE_URL = 'https://finance.yahoo.com/quote/'
 
-    """
     def convert_to_seconds(period):
         datetime_value = datetime.strptime(period, '%Y-%m-%d')
-        total_seconds = int(time.mktime(datetime_value.timetuple())) 
-        return total_seconds 
+        total_seconds = int(time.mktime(datetime_value.timetuple()))
+        return total_seconds
+
     try:
-        interval_reference = {'daily':'1d', 'weekly':'1wk', 'monthly':'1mo'}
-        _interval = interval_reference.get(interval)
-        if(_interval is None):
-            print('Nie podano interwału.')            
+        _interval = INTERVAL_REFERENCE.get(interval)
+        if _interval is None:
+            raise ValueError('Nie podano interwału.')
+
         p1 = convert_to_seconds(period1)
         p2 = convert_to_seconds(period2)
-        url = f'https://finance.yahoo.com/quote/{currency}-USD/history?period1={p1}&period2={p2}&interval={_interval}&filter=history&frequency=1d&includeAdjustedClose=true'
+        url = f'{YAHOO_FINANCE_URL}{currency}-USD/history?period1={p1}&period2={p2}&interval={_interval}&filter=history&frequency=1d&includeAdjustedClose=true'
         return url
     except Exception as e:
-        print(e)
-        return
+        raise e
+
 
 
 def scrape_yahoo_finance_data(Url, headers):
@@ -63,5 +62,3 @@ def scrape_yahoo_finance_data(Url, headers):
             print('Nie znaleziono tabeli z danymi.')
     else:
         print('Nie udało się pobrać strony. Status:', response.status_code)
-
-

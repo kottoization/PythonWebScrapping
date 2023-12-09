@@ -42,9 +42,9 @@ def main():
 
     functions_to_compose = [
         lambda: analyze_crypto(downloadData('BTC'), 'BTC'),
-        lambda: analyze_crypto(downloadData('ETH'), 'ETH'),
-        lambda: analyze_crypto(downloadData('BNB'), 'BNB'),
-        lambda: analyze_crypto(downloadData('SOL'), 'SOL'),
+    #    lambda: analyze_crypto(downloadData('ETH'), 'ETH'),
+    #    lambda: analyze_crypto(downloadData('BNB'), 'BNB'),
+    #   lambda: analyze_crypto(downloadData('SOL'), 'SOL'),
         lambda: Analysis.profit4Crypto()
     ]
 
