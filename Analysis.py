@@ -183,4 +183,3 @@ def profit4Crypto():
     lista = [btcYear, ethYear, bnbYear, solYear]
     nazwy = ["Bitcoin", "Ethernum", "Binance", "Solana"]
     profit(lista, nazwy)
-

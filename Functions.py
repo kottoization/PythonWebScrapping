@@ -37,7 +37,7 @@ def construct_download_url(
 def scrape_yahoo_finance_data(Url, headers):
     response = requests.get(Url, headers=headers)
     data = []
-
+ 
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'html.parser')
         table = soup.find('table', {'data-test': 'historical-prices'})
