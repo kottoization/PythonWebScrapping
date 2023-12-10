@@ -4,7 +4,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 import requests
 
-
+# funkcja tworzaca url
 def construct_download_url(
     currency,
     period1,
@@ -32,7 +32,7 @@ def construct_download_url(
         raise e
 
 
-
+# funkcja pobierajaca dane
 def scrape_yahoo_finance_data(Url, headers):
     response = requests.get(Url, headers=headers)
     data = []
