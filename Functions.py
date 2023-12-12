@@ -34,7 +34,7 @@ def construct_download_url(
 
 # funkcja pobierajaca dane
 def scrape_yahoo_finance_data(Url, headers):
-    response = requests.get(Url, headers=headers)
+    response = requests.get(Url, headers=headers) 
     data = []
  
     if response.status_code == 200:
