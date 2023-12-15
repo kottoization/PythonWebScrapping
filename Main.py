@@ -1,5 +1,7 @@
 import Functions
 import Analysis
+import WorkInProgressAnalysis
+import PlottingUtils
 from datetime import datetime
 
 def compose_functions(func_list):
