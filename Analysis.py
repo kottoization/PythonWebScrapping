@@ -34,17 +34,22 @@ def endoftheday_vs_beginningoftheday_data_weekly(df, title):
     plt.legend()
     plt.show()
 
-def profit(list, nazwy):
+def profit(data_list, currencies):
     mean = []
-    for i in list:
-        new_element = (i["AdjClose"].iloc[0] - i["AdjClose"].iloc[51])/i["AdjClose"].iloc[51]*100
+    for data in data_list:
+        last_index = data.index[-1]
+        first_price = data["AdjClose"].iloc[0]
+        last_price = data["AdjClose"].iloc[last_index]
+        new_element = ((last_price - first_price) / first_price) * 100
         mean.append(new_element)
+
     plt.figure(figsize=(10, 6))
-    plt.bar(nazwy, mean)
+    plt.bar(currencies, mean)
     plt.title("Increase in value (%)")
     plt.xlabel("Crypto currency")
     plt.ylabel("%")
     plt.show()
+
 
 
 def calculate_greed_fear_index(df):
@@ -175,10 +180,12 @@ def profit4Crypto():
     #pobranie danych
     solYear = Functions.scrape_yahoo_finance_data(solUrl, headers)
 
-    changing_format(btcYear)
-    changing_format(ethYear)
-    changing_format(bnbYear)
-    changing_format(solYear)
+
+    #changing_format(btcYear)
+    #changing_format(ethYear)
+    #changing_format(bnbYear)
+    #changing_format(solYear)''' 
+    #TODO: sprawdzic czy to powinno byc czy nie
 
     #Funkcja poiera listę tabel  danymi dotyczącymi kryptowaluty oraz listę nazw. Podaje o jaki procent wzrosły/zmalały krptowaluty
     lista = [btcYear, ethYear, bnbYear, solYear]

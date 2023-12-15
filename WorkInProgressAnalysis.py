@@ -33,14 +33,17 @@ def endoftheday_vs_beginningoftheday_data_weekly(df, title):
     }
     return data
 
-def profit(list, nazwy):
+def profit(data_list, currencies):
     mean = []
-    for i in list:
-        new_element = (i["AdjClose"].iloc[0] - i["AdjClose"].iloc[51])/i["AdjClose"].iloc[51]*100
+    for data in data_list:
+        last_index = data.index[-1]
+        first_price = data["AdjClose"].iloc[0]
+        last_price = data["AdjClose"].iloc[last_index]
+        new_element = ((last_price - first_price) / first_price) * 100
         mean.append(new_element)
     
     data = {
-        "x": nazwy,
+        "x": currencies,
         "y": mean,
         "title": "Increase in value (%)",
         "x_label": "Crypto currency",
@@ -144,11 +147,12 @@ def profit4Crypto():
     solUrl = Functions.construct_download_url('SOL', '2022-11-27', '2023-11-27','weekly')
     solYear = Functions.scrape_yahoo_finance_data(solUrl, headers)
 
-    changing_format(btcYear)
-    changing_format(ethYear)
-    changing_format(bnbYear)
-    changing_format(solYear)
-
+    #changing_format(btcYear)
+    #changing_format(ethYear)
+    #changing_format(bnbYear)
+    #changing_format(solYear)
+    #TODO: sprawdzic czy to powinno byc, chyba wychodzi na to ze ta funkcja powinna sie lacznie tylko raz wywoalc
+   
     lista = [btcYear, ethYear, bnbYear, solYear]
     nazwy = ["Bitcoin", "Ethernum", "Binance", "Solana"]
     

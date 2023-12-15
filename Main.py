@@ -50,8 +50,36 @@ def main():
         lambda: Analysis.profit4Crypto()
     ]
 
-    composed_function = compose_functions(functions_to_compose)
-    composed_function()
+   # composed_function = compose_functions(functions_to_compose)
+   # composed_function()
+
+
+
+   ### ---- new type of plotting - test below, over this is just a composition
+    btc_data = WorkInProgressAnalysis.changing_format(downloadData('BTC'))
+    eth_data = WorkInProgressAnalysis.changing_format(downloadData('ETH'))
+
+    btc_endoftheday_data = WorkInProgressAnalysis.endoftheday_data_weekly(btc_data, 'Bitcoin End of the Day')
+    btc_greed_fear_index = WorkInProgressAnalysis.calculate_greed_fear_index(btc_data)
+
+    eth_endoftheday_data = WorkInProgressAnalysis.endoftheday_data_weekly(eth_data, 'Ethereum End of the Day')
+    eth_greed_fear_index = WorkInProgressAnalysis.calculate_greed_fear_index(eth_data)
+
+    btc_profit = WorkInProgressAnalysis.profit([btc_data], ['Bitcoin'])
+    eth_profit = WorkInProgressAnalysis.profit([eth_data], ['Ethereum'])
+
+    # Tworzenie listy danych dla wykresu
+    charts_data = [
+        btc_endoftheday_data,
+        eth_endoftheday_data,
+        btc_greed_fear_index,
+        eth_greed_fear_index,
+        btc_profit,
+        eth_profit
+    ]
+
+    # Wywołanie funkcji plot_multiple_charts
+    PlottingUtils.plot_multiple_charts(charts_data)
 
 
 if __name__ == "__main__":
