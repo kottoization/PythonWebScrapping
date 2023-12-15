@@ -56,17 +56,19 @@ def main():
 
 
    ### ---- new type of plotting - test below, over this is just a composition
-    btc_data = WorkInProgressAnalysis.changing_format(downloadData('BTC'))
-    eth_data = WorkInProgressAnalysis.changing_format(downloadData('ETH'))
+    btc_data = downloadData('BTC')
+    eth_data = downloadData('ETH')  #TODO: delete the duplicate if not needed
+    formatted_btc_data = WorkInProgressAnalysis.changing_format(btc_data)
+    formatted_eth_data = WorkInProgressAnalysis.changing_format(eth_data)
 
-    btc_endoftheday_data = WorkInProgressAnalysis.endoftheday_data_weekly(btc_data, 'Bitcoin End of the Day')
-    btc_greed_fear_index = WorkInProgressAnalysis.calculate_greed_fear_index(btc_data)
+    btc_endoftheday_data = WorkInProgressAnalysis.endoftheday_data_weekly(formatted_btc_data, 'Bitcoin End of the Day')
+    btc_greed_fear_index = WorkInProgressAnalysis.calculate_greed_fear_index(formatted_eth_data)
 
-    eth_endoftheday_data = WorkInProgressAnalysis.endoftheday_data_weekly(eth_data, 'Ethereum End of the Day')
-    eth_greed_fear_index = WorkInProgressAnalysis.calculate_greed_fear_index(eth_data)
+    eth_endoftheday_data = WorkInProgressAnalysis.endoftheday_data_weekly(formatted_btc_data, 'Ethereum End of the Day')
+    eth_greed_fear_index = WorkInProgressAnalysis.calculate_greed_fear_index(formatted_eth_data)
 
-    btc_profit = WorkInProgressAnalysis.profit([btc_data], ['Bitcoin'])
-    eth_profit = WorkInProgressAnalysis.profit([eth_data], ['Ethereum'])
+    btc_profit = WorkInProgressAnalysis.profit([formatted_btc_data], ['Bitcoin'])
+    eth_profit = WorkInProgressAnalysis.profit([formatted_eth_data], ['Ethereum'])
 
     # Tworzenie listy danych dla wykresu
     charts_data = [
