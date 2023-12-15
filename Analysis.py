@@ -12,25 +12,25 @@ headers = {
 }
 
 def changing_format(df):
-     kolumny_numeryczne = ['Open', 'High', 'Low', 'Close', 'AdjClose', 'Volume']
-     df[kolumny_numeryczne] = df[kolumny_numeryczne].apply(lambda x: x.str.replace(',', ''))
-     df[kolumny_numeryczne] = df[kolumny_numeryczne].apply(pd.to_numeric, errors='coerce')
+     numeric_cols = ['Open', 'High', 'Low', 'Close', 'AdjClose', 'Volume']
+     df[numeric_cols] = df[numeric_cols].apply(lambda x: x.str.replace(',', ''))
+     df[numeric_cols] = df[numeric_cols].apply(pd.to_numeric, errors='coerce')
 
 def endoftheday_data_weekly(df, title):
     plt.figure(figsize=(10, 6))
     plt.bar(df["Date"], df["AdjClose"])
     plt.title(title)
-    plt.xlabel("Data")
-    plt.ylabel("Koniec dnia")
+    plt.xlabel("Date")
+    plt.ylabel("Close Price at EOD")
     plt.show()
 
 def endoftheday_vs_beginningoftheday_data_weekly(df, title):
     plt.figure(figsize=(10, 6))
-    plt.plot(df["Date"], df["Open"], label='Otwarcie', marker='o')
-    plt.plot(df["Date"], df["Close"], label='Zamknięcie', marker='o')
+    plt.plot(df["Date"], df["Open"], label='Open', marker='o')
+    plt.plot(df["Date"], df["Close"], label='Close', marker='x')
     plt.title(title)
-    plt.xlabel("Data")
-    plt.ylabel("Wartość")
+    plt.xlabel("Date")
+    plt.ylabel("Value")
     plt.legend()
     plt.show()
 
@@ -41,8 +41,8 @@ def profit(list, nazwy):
         mean.append(new_element)
     plt.figure(figsize=(10, 6))
     plt.bar(nazwy, mean)
-    plt.title("Procentowy wzrost wartości kryptowaluty")
-    plt.xlabel("Kryptowaluta")
+    plt.title("Increase in value (%)")
+    plt.xlabel("Crypto currency")
     plt.ylabel("%")
     plt.show()
 
