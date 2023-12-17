@@ -3,7 +3,7 @@ import Analysis
 import WorkInProgressAnalysis
 import PlottingUtils
 from datetime import datetime
-#pycodestyle 
+import pycodestyle 
 
 def compose_functions(func_list):
     def composed(*args, **kwargs):
