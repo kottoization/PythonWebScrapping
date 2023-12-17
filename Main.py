@@ -5,6 +5,12 @@ import PlottingUtils
 from datetime import datetime
 import pycodestyle 
 
+def check_style(files):
+    style_checker = pycodestyle
+    style_checker = pycodestyle.StyleGuide()
+    result = style_checker.check_files(files)
+    print(result.messages)
+
 def compose_functions(func_list):
     def composed(*args, **kwargs):
         result = None
@@ -84,6 +90,8 @@ def main():
     # Wywołanie funkcji plot_multiple_charts
     PlottingUtils.plot_multiple_charts(charts_data)
 
+    files_to_check = ['Main.Main.py', 'Analysis.py', 'Functions.py', 'PlottingUtils.py', 'WorkInProgressAnalysis.py']
+    check_style(files_to_check)
 
 if __name__ == "__main__":
     main()
