@@ -39,7 +39,7 @@ Provides an overview of the Fear and Greed Index in the crypto market, indicatin
 ## Future Enhancements
 
 1. **Machine Learning Integration:**
-   Integrate ML models to predict cryptocurrency prices, identify potential growth in specific altcoins, and offer insights based on historical data.
+   Integrate ML models to predict cryptocurrency prices, identify potential growth in specific altcoins, and offer insights based on historical data. Adding multiple variables with strong correlation to the price will be crucial.
 
 2. **Text Mining Techniques:**
    Implement text mining to analyze sentiment from social media, news articles, forums, etc., to gauge market sentiment and inform decision-making processes.
