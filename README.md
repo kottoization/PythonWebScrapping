@@ -15,7 +15,7 @@ To use this tool, follow these steps:
    ```bash
    cd PythonWebScrapping
    pip install -r requirements.txt
-   ```
+   ``` 
 
 3. **Run the application:**
    ```bash
